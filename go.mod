@@ -20,10 +20,8 @@ require (
 )
 
 require (
-	github.com/google/go-github/v56 v56.0.0
 	github.com/pkg/errors v0.9.1
 	github.com/samber/lo v1.38.1
-	github.com/tj/assert v0.0.3
 )
 
 require (
@@ -31,7 +29,6 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/deepmap/oapi-codegen v1.12.4 // indirect
 	github.com/elastic/elastic-transport-go/v8 v8.2.0 // indirect
-	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/influxdata/line-protocol v0.0.0-20200327222509-2487e7298839 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
