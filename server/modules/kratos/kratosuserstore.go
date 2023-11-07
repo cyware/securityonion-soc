@@ -76,7 +76,7 @@ func (kratos *KratosUserstore) GetUserById(ctx context.Context, id string) (*mod
 }
 
 func (kratos *KratosUserstore) GetUsers(ctx context.Context) ([]*model.User, error) {
-	kratosUsers := make([]*KratosUser, 0, 0)
+	kratosUsers := make([]*KratosUser, 0)
 
 	if err := kratos.server.CheckAuthorized(ctx, "read", "users"); err != nil {
 		// User is only allowed to get their own user. Even though the user is already on
@@ -115,7 +115,7 @@ func (kratos *KratosUserstore) GetUsers(ctx context.Context) ([]*model.User, err
 	}
 
 	// Convert the kratos users to SOC users
-	users := make([]*model.User, 0, 0)
+	users := make([]*model.User, 0)
 	enabledCount := 0
 	for _, kratosUser := range kratosUsers {
 		user := model.NewUser()

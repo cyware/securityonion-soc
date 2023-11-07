@@ -108,7 +108,7 @@ func (segment *BaseSegment) TermsAsString() string {
 }
 
 func (segment *BaseSegment) Clear() {
-	segment.terms = make([]*QueryTerm, 0, 0)
+	segment.terms = make([]*QueryTerm, 0)
 }
 
 func (segment *BaseSegment) RemoveTermsWith(raw string) int {
@@ -170,13 +170,13 @@ type SearchSegment struct {
 func NewSearchSegmentEmpty() *SearchSegment {
 	return &SearchSegment{
 		&BaseSegment{
-			terms: make([]*QueryTerm, 0, 0),
+			terms: make([]*QueryTerm, 0),
 		},
 	}
 }
 
 func NewSearchSegment(terms []*QueryTerm) (*SearchSegment, error) {
-	if terms == nil || len(terms) == 0 {
+	if len(terms) == 0 {
 		return nil, errors.New("ERROR_QUERY_INVALID__SEARCH_TERMS_MISSING")
 	}
 
@@ -264,13 +264,13 @@ type GroupBySegment struct {
 func NewGroupBySegmentEmpty() *GroupBySegment {
 	return &GroupBySegment{
 		&BaseSegment{
-			terms: make([]*QueryTerm, 0, 0),
+			terms: make([]*QueryTerm, 0),
 		},
 	}
 }
 
 func NewGroupBySegment(terms []*QueryTerm) (*GroupBySegment, error) {
-	if terms == nil || len(terms) == 0 {
+	if len(terms) == 0 {
 		return nil, errors.New("ERROR_QUERY_INVALID__GROUPBY_TERMS_MISSING")
 	}
 
@@ -295,13 +295,13 @@ type SortBySegment struct {
 func NewSortBySegmentEmpty() *SortBySegment {
 	return &SortBySegment{
 		&BaseSegment{
-			terms: make([]*QueryTerm, 0, 0),
+			terms: make([]*QueryTerm, 0),
 		},
 	}
 }
 
 func NewSortBySegment(terms []*QueryTerm) (*SortBySegment, error) {
-	if terms == nil || len(terms) == 0 {
+	if len(terms) == 0 {
 		return nil, errors.New("ERROR_QUERY_INVALID__SORTBY_TERMS_MISSING")
 	}
 
@@ -325,7 +325,7 @@ type Query struct {
 
 func NewQuery() *Query {
 	return &Query{
-		Segments: make([]QuerySegment, 0, 0),
+		Segments: make([]QuerySegment, 0),
 	}
 }
 
@@ -339,7 +339,7 @@ func (query *Query) NamedSegment(name string) QuerySegment {
 }
 
 func (query *Query) NamedSegments(name string) []QuerySegment {
-	segments := make([]QuerySegment, 0, 0)
+	segments := make([]QuerySegment, 0)
 	for _, segment := range query.Segments {
 		if segment.Kind() == name {
 			segments = append(segments, segment)
@@ -363,7 +363,7 @@ func (query *Query) RemoveSegment(name string) QuerySegment {
 }
 
 func (query *Query) Parse(str string) error {
-	currentSegmentTerms := make([]*QueryTerm, 0, 0)
+	currentSegmentTerms := make([]*QueryTerm, 0)
 	currentSegmentKind := SegmentKind_Search
 	var currentTermBuilder strings.Builder
 	escaping := false
@@ -406,7 +406,7 @@ func (query *Query) Parse(str string) error {
 					}
 					query.AddSegment(segment)
 					currentSegmentKind = ""
-					currentSegmentTerms = make([]*QueryTerm, 0, 0)
+					currentSegmentTerms = make([]*QueryTerm, 0)
 				} else if !escaping && (ch == ' ' || ch == ',' || ch == '\n' || ch == '\t') {
 					if currentTermBuilder.Len() > 0 {
 						term, err := NewQueryTerm(currentTermBuilder.String())
